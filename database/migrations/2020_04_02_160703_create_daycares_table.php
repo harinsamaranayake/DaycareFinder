@@ -21,6 +21,8 @@ class CreateDaycaresTable extends Migration
             $table->mediumText('owner')->nullable();
 
             $table->mediumText('address')->nullable();
+            $table->mediumText('city')->nullable();
+            $table->mediumText('state')->nullable();
             $table->mediumText('zip')->nullable();
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();

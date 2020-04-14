@@ -9,7 +9,7 @@
             <div >
                 <ul class="list-group list-group-flush" >
                     <li class="list-group-item"><h3>{{$daycare->name}}</h3></li>
-                    <li class="list-group-item"><b>Address</b> : {{$daycare->address}},{{$daycare->zip}}</li>
+                    <li class="list-group-item"><b>Address</b> : {{$daycare->address}}, {{$daycare->city}}, {{$daycare->state}}, {{$daycare->zip}}</li>
                     <li class="list-group-item"><b>Price</b> : ${{$daycare->price}}</li>
                     <li class="list-group-item"><b>Phone</b> : {{$daycare->contact}}</li>
                     <li class="list-group-item"><b>Email</b> : {{$daycare->email}}m</li>
@@ -33,7 +33,31 @@
         </div>
         <div class="col-lg-2 text-center mt-4" style="margin:auto;">
             <img class="my-0 mr-md-auto" src="{{asset('img/profile/clock.png')}}" alt="" width="100" height="100">
-            <h5>{{$daycare->mon}} {{$daycare->tue}}</h5>
+            <h5>
+                <?php
+                    if($daycare->mon ==1){
+                        echo 'Mon ';
+                    }
+                    if($daycare->tue ==1){
+                        echo 'Tue ';
+                    }
+                    if($daycare->wed ==1){
+                        echo 'Wed ';
+                    }
+                    if($daycare->thu ==1){
+                        echo 'Thu ';
+                    }
+                    if($daycare->fri ==1){
+                        echo 'Fri ';
+                    }
+                    if($daycare->sat ==1){
+                        echo 'Sat ';
+                    }
+                    if($daycare->sun ==1){
+                        echo 'Sun ';
+                    }
+                ?> 
+            </h5>
             <h5>{{$daycare->time_start}} - {{$daycare->time_end}}</h5>
         </div>
         <div class="col-lg-2 text-center mt-4" style="margin:auto;">

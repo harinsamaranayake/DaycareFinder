@@ -16,7 +16,6 @@
 // });
 
 Route::get('/', 'PagesController@loadIndexPage');
-
 Route::get('/search', 'PagesController@loadSearch');
 Route::get('/about', 'PagesController@loadAbout');
 Route::get('/sign', 'PagesController@loadSign');
@@ -32,3 +31,6 @@ Route::resource('daycare', 'DaycareController');
 Route::post('daycare/update_x', 'DaycareController@update_x');
 Route::post('daycare/delete_x', 'DaycareController@delete_x');
 Route::post('daycare/search_x', 'DaycareController@search_x');
+Route::post('daycare/filter_x', 'DaycareController@filter_x');
+
+Route::post('daycare/compare_x', 'DaycareController@comparecompare_x');

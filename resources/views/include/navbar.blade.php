@@ -6,6 +6,7 @@
             <a class="p-2 text-dark" href="/testapp/public/daycare">Search</a>
             {{-- <a class="p-2 text-dark" href="/testapp/public/about">Compare</a> --}}
             <a class="p-2 text-dark" href="/testapp/public/daycare/create">Daycare</a>
+            <a class="p-2 text-dark" href="/testapp/public/daycare/compare_x">Compare</a>
         </nav>
     <a class="btn btn-outline-primary" href="/testapp/public/sign">Sign up</a>
 </div>

@@ -108,12 +108,20 @@
                                 {{-- <input type="text" class="form-control" id="owner"> --}}
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label">Started On</label>
+                            <div class="col-sm-9">
+                                {{-- {{Form::date('started_on',\Carbon\Carbon::now())}} --}}
+                                {{ Form::date('started_on', \Carbon\Carbon::now(), ['class' => 'form-control', 'id'=>'datetimepicker']) }}
+                                {{-- <input type="text" class="form-control" id="owner"> --}}
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-9">
-                                {{Form::textarea('description','',['class'=>'form-control','rows'=>'3'])}}
+                                {{Form::textarea('description','',['class'=>'form-control','rows'=>'6'])}}
                                 {{-- <textarea class="form-control" rows="3" id="comment"></textarea> --}}
                             </div>
                         </div>
@@ -488,5 +496,12 @@
         function delete_daycare(){
             alert("Daycare Deleted");
         }
+
+        $('#datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd'
+        });
+
+        // Data Picker Initialization
+        $('.datepicker').pickadate();
     </script>
 @endsection
