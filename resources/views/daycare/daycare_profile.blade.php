@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <?php $daycare = $dataset[0] ?>
+    <?php $reviews = $dataset[1] ?>
     <div class="row col-lg-12 text-center mt-4" style="background-color:">
         <div class="col-lg-4 text-center mt-4" style="margin:auto;">
             <img class="my-0 mr-md-auto" src="{{asset('img/'.$daycare->img01)}}" alt="" width="400" height="280">
@@ -12,7 +14,7 @@
                     <li class="list-group-item"><b>Address</b> : {{$daycare->address}}, {{$daycare->city}}, {{$daycare->state}}, {{$daycare->zip}}</li>
                     <li class="list-group-item"><b>Price</b> : ${{$daycare->price}}</li>
                     <li class="list-group-item"><b>Phone</b> : {{$daycare->contact}}</li>
-                    <li class="list-group-item"><b>Email</b> : {{$daycare->email}}m</li>
+                    <li class="list-group-item"><b>Email</b> : {{$daycare->email}}</li>
                 </ul>
             </div>
         </div>
@@ -80,49 +82,120 @@
             <p>{{$daycare->description}}</p>
         </div>
     </div>
+
+    <div class="row col-lg-12 mt-4" style="margin:auto;">
+        <div class="col-md-12 card p-0">
+        {!! Form::open(['action' => 'ReviewController@add_review','method' => 'POST']) !!}
+        {!! Form::hidden('daycare_id', $daycare->id) !!}
+        {!! Form::hidden('reviewer_id', null) !!}
+            <div class="card-header">
+                <h4><b>Add a review</b></h4>
+            </div>
+            <div class="card-body">
+                <div class= "cold-md-12 row">
+                    <div class="col-md-10">
+                        <h6 class="card-title">Review</h6>
+                        {{Form::textarea('review', null,['class'=>'form-control my-2','rows'=>'3'])}}
+                    </div> 
+                    <div class="col-md-2">
+                        <h6 class="card-title my-0">Rating</h6>
+                        <div>
+                            {{Form::select('rating', [
+                                    '1' => '1', 
+                                    '2' => '2',
+                                    '3' => '3',
+                                    '4' => '4',
+                                    '5' => '5',
+                                ], null, ['placeholder' => 'Select Rating','class'=>'my-2 mb-4'])}}
+                        </div>
+                        <div>
+                            {{Form::submit('Add Review',['class'=>'btn btn-primary btn-m'])}}
+                        </div>
+                    </div>
+                       
+                </div>
+            </div>
+        {!!Form::close()!!}
+        </div>
+    </div>
+
+    <div class="row col-lg-12 mt-4" style="margin:auto;">
+        @foreach ($reviews as $review)
+            <div class="col-lg-12 card text-white bg-info mb-3 p-0">
+                <div class="card-header">
+                    {{-- {{$review->rating}} --}}
+                    @for($i = 0; $i < 5; $i++)
+                        @if($i<($review->rating))
+                            <span class="fa fa-star checked"></span>
+                        @else
+                            <span class="fa fa-star"></span>
+                        @endif
+                    @endfor
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">
+                        {{$review->review}}
+                    </h6>
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection
 
 @section('inline_js')
 
-{{-- <script>
-    function myMap() {
-        var mapProp= {
-        center:new google.maps.LatLng(51.508742,-0.120850),
-        zoom:5,
-        };
-        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    {{-- <script>
+        function myMap() {
+            var mapProp= {
+            center:new google.maps.LatLng(51.508742,-0.120850),
+            zoom:5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQqjTJ9NkjA0D-EndyliMcKMsW38fNfY&callback=myMap"></script> --}}
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+        // The location of Uluru
+        $lat = {{$daycare->lat}};
+        $lng = {{$daycare->lng}};
+            // $lat = -25.344;
+            // $lng = 131.036;
+        //   var daycare_loc = {lat: $lat, lng: $lng};
+        // var daycare_loc = {lat: -25.344, lng: 131.036};
+        var daycare_loc = {lat: {{$daycare->lat}}, lng: {{$daycare->lng}}};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 4, center: daycare_loc});
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: daycare_loc, map: map});
+        }
+    </script>
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQqjTJ9NkjA0D-EndyliMcKMsW38fNfY&callback=initMap">
+    </script>
+
+@endsection
+
+@section('inline_css')
+
+    <style>
+    /*--------- Rating --------*/
+
+    .checked {
+        color: orange;
     }
-</script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQqjTJ9NkjA0D-EndyliMcKMsW38fNfY&callback=myMap"></script> --}}
-
-<script>
-    // Initialize and add the map
-    function initMap() {
-      // The location of Uluru
-      $lat = {{$daycare->lat}};
-      $lng = {{$daycare->lng}};
-        // $lat = -25.344;
-        // $lng = 131.036;
-    //   var daycare_loc = {lat: $lat, lng: $lng};
-    // var daycare_loc = {lat: -25.344, lng: 131.036};
-    var daycare_loc = {lat: {{$daycare->lat}}, lng: {{$daycare->lng}}};
-      // The map, centered at Uluru
-      var map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 4, center: daycare_loc});
-        // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: daycare_loc, map: map});
-    }
-</script>
-
-<!--Load the API from the specified URL
-* The async attribute allows the browser to render the page while the API loads
-* The key parameter will contain your own API key (which is not needed for this tutorial)
-* The callback parameter executes the initMap() function
--->
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQqjTJ9NkjA0D-EndyliMcKMsW38fNfY&callback=initMap">
-</script>
-
+    </style>
+    
 @endsection
 

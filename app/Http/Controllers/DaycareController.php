@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Daycare;
+use App\Review;
 use DB;
 
 
@@ -17,8 +18,16 @@ class DaycareController extends Controller
     public function index()
     {
         if(Daycare::count()>0){
-            $data = Daycare::orderBy('name','asc')->paginate(10);
-            return view('daycare.daycares')->with('daycares',$data); 
+            // $data = Daycare::orderBy('name','asc')->paginate(10);
+            $data = DB::table('daycares')->get();
+
+            foreach($data as $daycare){
+                $daycare->reviews = DB::table('reviews')->where('daycare_id', $daycare->id)->count();
+                $daycare->rating = DB::table('reviews')->where('daycare_id', $daycare->id)->avg('rating');
+
+            }
+
+            return view('daycare.daycares')->with('daycares',$data);
         }else{
             return view('daycare.no_daycare'); 
         }
@@ -146,7 +155,26 @@ class DaycareController extends Controller
      */
     public function show($id)
     {
+        // $data = Daycare::find($id);
+
+        // if($data != null){
+        //     if(($data->accepting_students)==1){
+        //         $data->accepting_students = 'Accepting Students';
+        //     }else if(($data->accepting_students)==0){
+        //         $data->accepting_students = 'Not Accepting Students';
+        //     }
+        //     return view('daycare.daycare_profile')->with('daycare',$data);
+        // }else{
+        //     return view('daycare.no_daycare');
+        // }
+
+        $data1 = array();
         $data = Daycare::find($id);
+        $reviews = DB::select('SELECT * FROM reviews WHERE daycare_id = "'.$id.'"');
+        array_push($data1, $data);
+        array_push($data1, $reviews);
+        // return $data1;
+
 
         if($data != null){
             if(($data->accepting_students)==1){
@@ -154,11 +182,47 @@ class DaycareController extends Controller
             }else if(($data->accepting_students)==0){
                 $data->accepting_students = 'Not Accepting Students';
             }
-            return view('daycare.daycare_profile')->with('daycare',$data);
+            return view('daycare.daycare_profile')->with('dataset',$data1);
         }else{
             return view('daycare.no_daycare');
         }
+
+        
+
+
+
+
+
+        // return array($data,$reviews);
+
+        // $data = Daycare::find($id);
+        // $reviews = DB::select('SELECT * FROM reviews WHERE daycare_id = "'.$id.'"');
+
+        // $new_data = array(
+        //     'daycare' -> $data,
+        //     'reviews' -> $reviews,
+        // );
+        
+
+        // if($data != null){
+        //     if(($data->accepting_students)==1){
+        //         $data->accepting_students = 'Accepting Students';
+        //     }else if(($data->accepting_students)==0){
+        //         $data->accepting_students = 'Not Accepting Students';
+        //     }
+        //     // return view('daycare.daycare_profile')->with('daycare',$data);
+        //     return view('daycare.daycare_profile')->with('new_data',$new_data);
+        // }else{
+        //     return view('daycare.no_daycare');
+        // }
+
+        // return array($data,$reviews);
     }
+
+    public function show_x(){
+        //
+    }
+
 
 
 
@@ -471,9 +535,34 @@ class DaycareController extends Controller
         // return $data;
     }
 
-    public function compare_x()
+    public function compare_x(Request $request)
     {
-        return 'compare';
+        $daycare_count = Daycare::count();
+        $compare_count = 0;
+        $data = array();
+
+        for ($x = 1; $x <= $daycare_count; $x++) {
+            if($request[''.$x.'']!=null){
+                $compare_count ++ ;
+                
+                //processing
+                $daycare = Daycare::find($x);
+                array_push($data,$daycare);
+
+                if($compare_count == 3){
+                    break;
+                }
+            }
+        } 
+
+        // if($request['100']==null){
+        //     $abc = 'pqr';
+        // }
+
+        // return $request['100'];
+        // return $data;
+        return view('daycare.compare')->with('daycares',$data);
+
     }
     
 

@@ -240,11 +240,18 @@
 
     {{-- LIST VIEW --}}
     <div id="list_view" style="display:">
+            {!! Form::open(['action' => 'DaycareController@compare_x','method' => 'POST']) !!}
+
+            <div class="text-center" style="margin:auto">
+                {{Form::submit('Compare Selected Daycares',['class'=>'btn btn-primary btn-lg'])}}
+            </div>
 
             @foreach ($daycares as $daycare)
 
                 <div class="card m-4">
                     <div class="card-header" onclick="javascript:location.href='/testapp/public/daycare/{{$daycare->id}}'">
+                    {{-- <div class="card-header" onclick="javascript:location.href='/testapp/public/daycare/show_y'"> --}}
+                    {{-- <div class="card-header" onclick="javascript:location.href='/testapp/public/daycare/show_x/{{$daycare->id}}'"> --}}
                     {{-- <div class="card-header" onclick="javascript:location.href='/testapp/public/daycare_profile/{{$daycare->id}}'"> --}}
                     {{-- <div class="card-header" onclick="javascript:location.href='/testapp/public/daycare/profile'"> --}}
                         <div class="row col-lg-12" style="margin:auto;">
@@ -281,13 +288,15 @@
                             </div>
                             <div class="col-lg-2" style="display: flex;align-items: center;justify-content: center;">
                                 <div>
-                                    <input type="checkbox" />
+                                    {{Form::checkbox($daycare->id,$daycare->id,['class'=>'form-check-input'])}}
+                                    {{-- <input type="checkbox" /> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach 
+            {!! Form::close() !!}
             
                 <div class="row">
                     <div style="margin:auto">

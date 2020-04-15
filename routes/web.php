@@ -33,4 +33,8 @@ Route::post('daycare/delete_x', 'DaycareController@delete_x');
 Route::post('daycare/search_x', 'DaycareController@search_x');
 Route::post('daycare/filter_x', 'DaycareController@filter_x');
 
-Route::post('daycare/compare_x', 'DaycareController@comparecompare_x');
+Route::post('daycare/compare_x', 'DaycareController@compare_x');
+
+Route::post('daycare/show_x', 'DaycareController@show_x');
+
+Route::post('review/add_review', 'ReviewController@add_review');
