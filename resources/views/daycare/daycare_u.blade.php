@@ -4,7 +4,7 @@
     <div class="p-4" style="background-color:#E8F6F3">
 
         {{-- <form style="display:none" id="add_update_daycare_form"> --}}
-        {!! Form::open(['action' => ['DaycareController@update', $daycare->id],'method' => 'POST']) !!}
+        {!! Form::open(['action' => ['DaycareController@update', $daycare->id],'method' => 'POST','enctype'=>'multipart/form-data']) !!}
 
         {{ Form::model($daycare)}}
             <div id="add_update_daycare_form">
@@ -332,7 +332,7 @@
                                 <label for="staticEmail" class="col-sm-3 col-form-label">Image 01</label>
                                 <div class="col-sm-9">
                                     {{Form::file('img01')}}
-                                    {{$daycare->img01}}
+                                    {{-- {{$daycare->img01}} --}}
                                     {{-- <input id="image01" name="FileUpload" multiple="" type="file" />  --}}
                                 </div>
                             </div>
@@ -340,7 +340,7 @@
                                 <label for="inputPassword" class="col-sm-3 col-form-label">Image 02</label>
                                 <div class="col-sm-9">
                                     {{Form::file('img02')}}
-                                    {{$daycare->img02}}
+                                    {{-- {{$daycare->img02}} --}}
                                     {{-- <input id="image02" name="FileUpload" multiple="" type="file" />  --}}
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                                 <label for="inputPassword" class="col-sm-3 col-form-label">Image 03</label>
                                 <div class="col-sm-9">
                                     {{Form::file('img03')}}
-                                    {{$daycare->img03}}
+                                    {{-- {{$daycare->img03}} --}}
                                     {{-- <input id="image03" name="FileUpload" multiple="" type="file" />  --}}
                                 </div>
                             </div>

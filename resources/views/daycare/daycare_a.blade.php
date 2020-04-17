@@ -85,7 +85,7 @@
 
 
         {{-- <form style="display:none" id="add_update_daycare_form"> --}}
-        {!! Form::open(['action' => 'DaycareController@store','method' => 'POST']) !!}
+        {!! Form::open(['action' => 'DaycareController@store','method' => 'POST','enctype'=>'multipart/form-data']) !!}
         <div class="mt-4" style="display:none" id="add_daycare_form">
             <div class="m-2 mt-4"> 
             

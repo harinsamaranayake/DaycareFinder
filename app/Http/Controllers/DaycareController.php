@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use App\Daycare;
 use App\Review;
 use DB;
@@ -30,14 +32,6 @@ class DaycareController extends Controller
         }else{
             return view('daycare.no_daycare'); 
         }
-
-        // $data = Daycare::orderBy('name','asc')->paginate(10);
-        // $data = Daycare::all();
-        // $data = Daycare::orderBy('name','asc')->get();
-        // $data = Daycare::orderBy('name','asc')->take(1)->get();
-        // $data = DB::select('SELECT * FROM daycares');
-        // return Daycare::where('name','ABC')->get();
-
     }
 
 
@@ -65,7 +59,7 @@ class DaycareController extends Controller
         $this->validate($request,[
         //     'name'=>'required',
         //     'owner'=>'required',
-        //     //'started_on'=>'required',
+        //     'started_on'=>'required',
         //     'description'=>'required',
 
         //     'ad01'=>'required',
@@ -76,7 +70,7 @@ class DaycareController extends Controller
         //     'lat'=>'required',
         //     'lng'=>'required',
         //     'email'=>'required',
-        //     // 'web'=>'required',
+        //     'web'=>'nullable',
         //     'contact'=>'required',
 
         //     'price'=>'required',
@@ -90,11 +84,19 @@ class DaycareController extends Controller
         //     'age_high'=>'required',
         //     'students_per_teacher'=>'required',
         //     'curriculum'=>'required',
-
-        //     'time_start'=>'required',
-        //     'time_end'=>'required',
+        'img01' => 'image|nullable|max:1999',
 
         ]);
+
+        if($request->hasFile('img01')){
+            $file_name_with_extention = $request->file('img01')->getClientOriginalName();
+            $file_name = pathinfo($file_name_with_extention,PATHINFO_FILENAME);
+            $extention = $request->file('img01')->getClientOriginalExtension();
+            $file_name_to_store_01 = $file_name.'_'.time().'.'.$extention;
+            $path = $request->file('img01')->storeAs('public/daycare_images',$file_name_to_store_01);
+        }else{
+            $file_name_to_store_01 = 'noimage.jpg';
+        }
 
         $daycare = new Daycare;
 
@@ -135,7 +137,7 @@ class DaycareController extends Controller
         $daycare->fri = $request->input('fri');
         $daycare->sat = $request->input('sat');
         $daycare->sun = $request->input('sun');
-        $daycare->img01 = $request->input('img01');
+        $daycare->img01 = $file_name_to_store_01;
         $daycare->img02 = $request->input('img02');
         $daycare->img03 = $request->input('img03');
 
@@ -257,8 +259,7 @@ class DaycareController extends Controller
 
         $daycare = Daycare::find($id);
         
-        if($daycare != null){
-            // $this->validate($request,[
+        if($daycare != null){$this->validate($request,[
             //     'name'=>'required',
             //     'owner'=>'required',
             //     //'started_on'=>'required',
@@ -289,8 +290,18 @@ class DaycareController extends Controller
 
             //     'time_start'=>'required',
             //     'time_end'=>'required',
+            'img01' => 'image|nullable|max:1999',
 
-            // ]);
+            ]);
+
+
+            if($request->hasFile('img01')){
+                $file_name_with_extention = $request->file('img01')->getClientOriginalName();
+                $file_name = pathinfo($file_name_with_extention,PATHINFO_FILENAME);
+                $extention = $request->file('img01')->getClientOriginalExtension();
+                $file_name_to_store_01 = $file_name.'_'.time().'.'.$extention;
+                $path = $request->file('img01')->storeAs('public/daycare_images',$file_name_to_store_01);
+            }
 
             $daycare->name = $request->input('name');
             $daycare->owner = $request->input('owner');
@@ -318,9 +329,14 @@ class DaycareController extends Controller
 
             $daycare->time_start = $request->input('time_start');
             $daycare->time_end = $request->input('time_end');
-             $daycare->img01 = $request->input('img01');
-            $daycare->img02 = $request->input('img02');
-            $daycare->img03 = $request->input('img03');
+
+            if($request->hasFile('img01')){
+                $daycare->img01 = $file_name_to_store_01;
+            }
+
+            // $daycare->img01 = $request->input('img01');
+            // $daycare->img02 = $request->input('img02');
+            // $daycare->img03 = $request->input('img03');
 
             $daycare->mon = $request->input('mon');
             $daycare->tue = $request->input('tue');
@@ -380,11 +396,16 @@ class DaycareController extends Controller
         $daycare = Daycare::find($id);
 
         if($daycare != null){
+            if($daycare->img01!='noimage.jpg'){ 
+                Storage::delete('public/daycare_images/'.$daycare->img01);
+            }
             $daycare-> delete();
             return redirect('/daycare/create')->with('success','Daycare removed.');
         }else{
             return redirect('/daycare/create')->with('error','The ID you entered is invalid.');
         }
+
+
     }
 
 
@@ -397,6 +418,10 @@ class DaycareController extends Controller
         $data2 = DB::select('SELECT * FROM daycares WHERE state = "'.$value.'"');
         $data3 = DB::select('SELECT * FROM daycares WHERE zip = "'.$value.'"');
 
+        // $data1 = DB::table('daycares')->where('city', $value)->get();
+        // $data2 = DB::table('daycares')->where('state', $value)->get();
+        // $data3 = DB::table('daycares')->where('zip', $value)->get();
+
         if($data1 != null){
             return view('daycare.daycares')->with('daycares',$data1); 
         }else if($data2 != null){
@@ -406,22 +431,6 @@ class DaycareController extends Controller
         }else{
             return view('daycare.no_daycare');
         }
-
-        // $data1 = DB::table('daycares')->where('city', '"'.$value.'"');
-        // $data2 = DB::table('daycares')->where('state', '"'.$value.'"');
-        // $data3 = DB::table('daycares')->where('zip', '"'.$value.'"');
-
-        // $data = DB::select('SELECT * FROM daycares WHERE zip = "'.$value.'"');
-
-        // if($data != null){
-        //     return view('daycare.daycares')->with('daycares',$data); 
-        // }else{
-        //     return view('daycare.no_daycare');
-        // }
-                
-        // $data = DB::table('daycares')->where('zip', $value);
-        return $data1;
-        // return 'done';
     }
 
 
@@ -546,7 +555,7 @@ class DaycareController extends Controller
             if($request[''.$x.'']!=null){
                 $compare_count ++ ;
                 
-                //processing
+                //adding daycares to the array
                 $daycare = Daycare::find($x);
                 array_push($data,$daycare);
 
@@ -556,14 +565,7 @@ class DaycareController extends Controller
             }
         } 
 
-        // if($request['100']==null){
-        //     $abc = 'pqr';
-        // }
-
-        // return $request['100'];
-        // return $data;
         return view('daycare.compare')->with('daycares',$data);
-
     }
     
 

@@ -5,7 +5,7 @@
     <?php $reviews = $dataset[1] ?>
     <div class="row col-lg-12 text-center mt-4" style="background-color:">
         <div class="col-lg-4 text-center mt-4" style="margin:auto;">
-            <img class="my-0 mr-md-auto" src="{{asset('img/'.$daycare->img01)}}" alt="" width="400" height="280">
+            <img class="my-0 mr-md-auto" src="{{asset('storage/daycare_images/'.$daycare->img01)}}" alt="" width="400" height="280">
         </div>
         <div class="col-lg-4 mt-4 bg-white" style="display: flex;align-items: center;justify-content: center;">
             <div >

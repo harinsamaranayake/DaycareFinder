@@ -275,7 +275,7 @@
                     <div class="card-body">
                         <div class="row col-lg-12" style="margin:auto;">
                             <div class="col-lg-4" style="display: flex;align-items: center;justify-content: center;">
-                                <img class="my-0 mr-md-auto" src="{{asset('img/'.$daycare->img01)}}" alt="" width="300" height="210">
+                                <img class="my-0 mr-md-auto" src="{{asset('storage/daycare_images/'.$daycare->img01)}}" alt="" width="300" height="210">
                             </div>
                             <div class="col-lg-6" style="display: flex;align-items: center;justify-content: center;">
                                 <div>
@@ -318,7 +318,7 @@
                         <div class="card-body p-0">
                             <div class="row col-lg-12" style="margin:auto;">
                                 <div class="col-lg-6" style="display: flex;align-items: center;justify-content: center;">
-                                    <img class="my-0 mr-md-auto" src="{{asset('img/daycare.jpeg')}}" alt="" width="100%" height="">
+                                    <img class="my-0 mr-md-auto" src="{{asset('storage/daycare_images/'.$daycare->img01)}}" alt="" width="100%" height="">
                                 </div>
                                 <div class="col-lg-6 bg-white" style="display: flex;align-items: center;justify-content: center;">
                                     <div >
