@@ -17,8 +17,10 @@ class CreateDaycaresTable extends Migration
             $table->bigIncrements('id');
             
             $table->mediumText('name')->nullable();
-            $table->longText('description')->nullable();
             $table->mediumText('owner')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->date('started_on')->nullable();
+            $table->longText('description')->nullable();
 
             $table->mediumText('address')->nullable();
             $table->mediumText('city')->nullable();
@@ -69,7 +71,6 @@ class CreateDaycaresTable extends Migration
             $table->integer('rating')->nullable();
             $table->integer('reviews')->nullable();
             
-            $table->date('started_on')->nullable();
             $table->timestamps();
         }); 
     }

@@ -18,13 +18,12 @@ class DaycareController extends Controller
     public function index()
     {
         if(Daycare::count()>0){
-            // $data = Daycare::orderBy('name','asc')->paginate(10);
             $data = DB::table('daycares')->get();
 
+            // get review_count and average_rating
             foreach($data as $daycare){
                 $daycare->reviews = DB::table('reviews')->where('daycare_id', $daycare->id)->count();
                 $daycare->rating = DB::table('reviews')->where('daycare_id', $daycare->id)->avg('rating');
-
             }
 
             return view('daycare.daycares')->with('daycares',$data);
@@ -32,6 +31,7 @@ class DaycareController extends Controller
             return view('daycare.no_daycare'); 
         }
 
+        // $data = Daycare::orderBy('name','asc')->paginate(10);
         // $data = Daycare::all();
         // $data = Daycare::orderBy('name','asc')->get();
         // $data = Daycare::orderBy('name','asc')->take(1)->get();
@@ -100,6 +100,7 @@ class DaycareController extends Controller
 
         $daycare->name = $request->input('name');
         $daycare->owner = $request->input('owner');
+        $daycare->user_id = auth()->user()->id; 
         $daycare->started_on = $request->input('started_on');
         $daycare->description = $request->input('description'); 
 

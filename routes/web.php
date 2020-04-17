@@ -38,3 +38,6 @@ Route::post('daycare/compare_x', 'DaycareController@compare_x');
 Route::post('daycare/show_x', 'DaycareController@show_x');
 
 Route::post('review/add_review', 'ReviewController@add_review');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
