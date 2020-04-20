@@ -18,7 +18,7 @@
         {{-- FILTERS --}}
         <div class="col-md-10">
             {{-- NORMAL FILTERS --}}
-            {!! Form::open(['action' => 'DaycareController@filter_x','method' => 'POST']) !!}
+            {!! Form::open(['action' => 'DaycareController@filter_x','method' => 'POST','']) !!}
             <div class="row">
                 <div class="col-lg-2 text-center mt-4" style="margin:auto;">
                     {{-- <div class="dropdown">
@@ -461,6 +461,12 @@
 
         .checked {
             color: orange;
+        }
+
+        /*--------- Filter --------*/
+
+        .filter {
+            width: 30px;
         }
 
     </style>

@@ -20,19 +20,33 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,600" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    @yield('inline_css')
+
 </head>
 <body>
     <div id="app">
         @include('include.navbar')
-        <main class="py-4">
+        <main>
             @include('extra.messages')
             @yield('content')
         </main>
     </div>
 
+    <div class="col-lg-12 text-center m-0 p-2" style="background-color:#00071E;">
+        <a class="nav-link m-0 p-0" href="#"><h6>&#169; HACKERS 2020</h6></a>
+    </div>
+
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+    @yield('inline_css')
     @yield('inline_js')
-    {{-- <script type="text/javascript" src="{{asset('js/app.js')}}"></script> --}}
 </body>
 </html>
 

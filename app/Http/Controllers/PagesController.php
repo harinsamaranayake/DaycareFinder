@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function loadIndexPage(){
-        return view('pages.home');
+        return view('pages.home4');
     }
 
     public function loadDaycareProfile($id = 0){

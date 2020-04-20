@@ -15,8 +15,7 @@
 
             </ul>
 
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav m-auto">
                 {!! Form::open(['action' => 'DaycareController@search_x','method' => 'POST']) !!}
                     <div class="form-row mr-4">
                         <li class="nav-item mr-2">
@@ -27,20 +26,18 @@
                         </li>
                     </div>
                 {{Form::close()}}
+            </ul>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/testapp/public/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/testapp/public/daycare_profile">Sample</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/testapp/public/daycare">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/testapp/public/daycare/create">Daycare</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/testapp/public/daycare/compare_x">Compare</a>
+                    <a class="nav-link text-dark" href="/testapp/public/daycare/">About Us</a>
                 </li>
                 <!-- Authentication Links -->
                 @guest
@@ -59,6 +56,8 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/testapp/public/daycare/create">Dashboard</a>
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

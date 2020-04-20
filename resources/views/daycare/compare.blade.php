@@ -273,5 +273,5 @@
 @endsection
 
 @section('inline_css')
-    <link href="{{asset('custom_assets/compare.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('custom_assets/compare.css')}}" rel="stylesheet"> --}}
 @endsection

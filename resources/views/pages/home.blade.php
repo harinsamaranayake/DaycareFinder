@@ -83,166 +83,166 @@
 
 
 @section('inline_css')
-<style>
-.container {
-  padding: 40px;
+  <style>
+  .container {
+    padding: 40px;
 
-}
-
-.search-box {
-  height:72px;
-  width: 85%;
-  border-radius: 3px;
-  padding: 4px 55px 4px 15px;
-  position: relative;
-  background: #fff;
-  border: 1px solid #ddd;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
-  top:-600px;
-  margin:auto;
-}
-.search-box.hovered, .search-box:hover, .search-box:active {
-  border: 1px solid #aaa;
-}
-.search-box input[type=text] {
-  border: none;
-  box-shadow: none;
-  display: inline-block;
-  padding: 0;
-  background: transparent;
-}
-.search-box input[type=text]:hover, .search-box input[type=text]:focus, .search-box input[type=text]:active {
-  box-shadow: none;
-}
-.search-box .search-btn {
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  color: #aaa;
-  border-radius: 3px;
-  font-size: 21px;
-  padding: 5px 10px 1px;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
-}
-.search-box .search-btn:hover {
-  color: #fff;
-  background-color: #8FBE00;
-}
-.words{
-margin-top:-575px
-}
-.form-control{
-    font-size:2em;
-
-}
-
-.daycarewords{
-    color:#ff0564; 
-    font-size:72px;
-    text-align:center;
-    opacity:0.99;
-}
-
-
-
-
-
-}
-@media screen and (max-width:959px){
-  .row{
-    width:100%
   }
 
+  .search-box {
+    height:72px;
+    width: 85%;
+    border-radius: 3px;
+    padding: 4px 55px 4px 15px;
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+    top:-600px;
+    margin:auto;
+  }
+  .search-box.hovered, .search-box:hover, .search-box:active {
+    border: 1px solid #aaa;
+  }
+  .search-box input[type=text] {
+    border: none;
+    box-shadow: none;
+    display: inline-block;
+    padding: 0;
+    background: transparent;
+  }
+  .search-box input[type=text]:hover, .search-box input[type=text]:focus, .search-box input[type=text]:active {
+    box-shadow: none;
+  }
+  .search-box .search-btn {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    color: #aaa;
+    border-radius: 3px;
+    font-size: 21px;
+    padding: 5px 10px 1px;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+  }
+  .search-box .search-btn:hover {
+    color: #fff;
+    background-color: #8FBE00;
+  }
+  .words{
+  margin-top:-575px
+  }
+  .form-control{
+      font-size:2em;
+
+  }
+
+  .daycarewords{
+      color:#ff0564; 
+      font-size:72px;
+      text-align:center;
+      opacity:0.99;
+  }
+
+
+
+
+
+  }
+  @media screen and (max-width:959px){
+    .row{
+      width:100%
+    }
+
+    .search-box{
+      height: 50px;
+      width: 80%;
+    }
+    .form-control {
+      font-size: 1.5em;
+
+    }
+
+  }
+    @media screen and (max-width:750px){
+  
+  .words{
+  margin-top:-360px;
+
+  }
   .search-box{
-    height: 50px;
-    width: 80%;
+      height: 50px;
+      width: 80%;
+  top:-390px;
+    }
+
+  .daycarewords{
+
+      font-size: 61px;
+    
+
   }
   .form-control {
-    font-size: 1.5em;
+      font-size: 1em;
 
   }
 
-}
-  @media screen and (max-width:750px){
- 
-.words{
-margin-top:-360px;
 
-}
-.search-box{
-    height: 50px;
-    width: 80%;
-top:-390px;
+
+
   }
+  @media screen and (max-width:648px){
 
-.daycarewords{
-
-    font-size: 61px;
-   
-
-}
-.form-control {
+    .daycare_words{
+    color: #ff0564;
+      font-size: 61px;
+    
+      text-align: center;
+      opacity: 0.99;
+      font-weight: 2em;
+      font-weight: bold;
+  }
+  .form-control {
+    
+      font-size: 0.8em;
+      margin-top: 4px;
+  }
+  .search-box {
+      height: 50px;
+      width: 80%;
+      top: -220px;
+      text-align: center;
+      margin: auto;
+  }
+  .nav{
     font-size: 1em;
+      font-family: cursive;
+  }
+  .daycarewords {
+      font-size: 24px;}
 
-}
-
-
-
-
-}
-@media screen and (max-width:648px){
-
-  .daycare_words{
-  color: #ff0564;
-    font-size: 61px;
-   
-    text-align: center;
-    opacity: 0.99;
-    font-weight: 2em;
-    font-weight: bold;
-}
-.form-control {
-   
+  .h3{
     font-size: 0.8em;
-    margin-top: 4px;
-}
-.search-box {
-    height: 50px;
-    width: 80%;
-    top: -220px;
-    text-align: center;
-    margin: auto;
-}
-.nav{
-  font-size: 1em;
-    font-family: cursive;
-}
-.daycarewords {
-    font-size: 24px;}
-
-.h3{
-  font-size: 0.8em;
 
 
-}
-.words {
-    margin-top: -250px;}
+  }
+  .words {
+      margin-top: -250px;}
 
-.smallwords{
+  .smallwords{
 
-  font-size:1em
-}
+    font-size:1em
+  }
 
-.footer_words{
-  line-hight:17px;
-}
+  .footer_words{
+    line-hight:17px;
+  }
 
 
-}
+  }
 
 
 

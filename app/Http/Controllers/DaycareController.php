@@ -36,6 +36,7 @@ class DaycareController extends Controller
 
 
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,6 +47,7 @@ class DaycareController extends Controller
         return view('daycare.daycare_a');
     }
 
+    
 
 
     /**
@@ -57,34 +59,34 @@ class DaycareController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-        //     'name'=>'required',
-        //     'owner'=>'required',
-        //     'started_on'=>'required',
-        //     'description'=>'required',
+            // 'name'=>'required',
+            // 'owner'=>'required',
+            // 'started_on'=>'required',
+            // 'description'=>'required',
 
-        //     'ad01'=>'required',
-        //     'ad02'=>'required',
-        //     'city'=>'required',
-        //     'state'=>'required',
-        //     'zip'=>'required',
-        //     'lat'=>'required',
-        //     'lng'=>'required',
-        //     'email'=>'required',
-        //     'web'=>'nullable',
-        //     'contact'=>'required',
+            // 'ad01'=>'required',
+            // 'ad02'=>'required',
+            // 'city'=>'required',
+            // 'state'=>'required',
+            // 'zip'=>'required',
+            // 'lat'=>'required',
+            // 'lng'=>'required',
+            // 'email'=>'required',
+            // 'web'=>'nullable',
+            // 'contact'=>'required',
 
-        //     'price'=>'required',
-        //     'age_low'=>'required',
-        //     'age_high'=>'required',
-        //     'students_per_teacher'=>'required',
-        //     'curriculum'=>'required',
+            // 'price'=>'required',
+            // 'age_low'=>'required',
+            // 'age_high'=>'required',
+            // 'students_per_teacher'=>'required',
+            // 'curriculum'=>'required',
 
-        //     'price'=>'required',
-        //     'age_low'=>'required',
-        //     'age_high'=>'required',
-        //     'students_per_teacher'=>'required',
-        //     'curriculum'=>'required',
-        'img01' => 'image|nullable|max:1999',
+            // 'price'=>'required',
+            // 'age_low'=>'required',
+            // 'age_high'=>'required',
+            // 'students_per_teacher'=>'required',
+            // 'curriculum'=>'required',
+            'img01' => 'image|nullable|max:1999',
 
         ]);
 
@@ -129,7 +131,6 @@ class DaycareController extends Controller
 
         $daycare->time_start = $request->input('time_start');
         $daycare->time_end = $request->input('time_end');
-        // $daycare->open_days = $request->input('mon').(' ').$request->input('tue').(' ').$request->input('wed').(' ').$request->input('thu').(' ').$request->input('fri').(' ').$request->input('sat').(' ').$request->input('sun');
         $daycare->mon = $request->input('mon');
         $daycare->tue = $request->input('tue');
         $daycare->wed = $request->input('wed');
@@ -149,7 +150,6 @@ class DaycareController extends Controller
 
 
     
-
     /**
      * Display the specified resource.
      *
@@ -158,25 +158,11 @@ class DaycareController extends Controller
      */
     public function show($id)
     {
-        // $data = Daycare::find($id);
-
-        // if($data != null){
-        //     if(($data->accepting_students)==1){
-        //         $data->accepting_students = 'Accepting Students';
-        //     }else if(($data->accepting_students)==0){
-        //         $data->accepting_students = 'Not Accepting Students';
-        //     }
-        //     return view('daycare.daycare_profile')->with('daycare',$data);
-        // }else{
-        //     return view('daycare.no_daycare');
-        // }
-
-        $data1 = array();
+        $dataset = array();
         $data = Daycare::find($id);
         $reviews = DB::select('SELECT * FROM reviews WHERE daycare_id = "'.$id.'"');
-        array_push($data1, $data);
-        array_push($data1, $reviews);
-        // return $data1;
+        array_push($dataset, $data);
+        array_push($dataset, $reviews);
 
 
         if($data != null){
@@ -185,7 +171,7 @@ class DaycareController extends Controller
             }else if(($data->accepting_students)==0){
                 $data->accepting_students = 'Not Accepting Students';
             }
-            return view('daycare.daycare_profile')->with('dataset',$data1);
+            return view('daycare.daycare_profile')->with('dataset',$dataset);
         }else{
             return view('daycare.no_daycare');
         }
@@ -222,6 +208,11 @@ class DaycareController extends Controller
         // return array($data,$reviews);
     }
 
+
+
+
+
+
     public function show_x(){
         //
     }
@@ -256,13 +247,12 @@ class DaycareController extends Controller
     public function update(Request $request, $id)
     {   
         // Updating daycare
-
         $daycare = Daycare::find($id);
         
         if($daycare != null){$this->validate($request,[
             //     'name'=>'required',
             //     'owner'=>'required',
-            //     //'started_on'=>'required',
+            //     'started_on'=>'nullable',
             //     'description'=>'required',
 
             //     'ad01'=>'required',
@@ -273,7 +263,7 @@ class DaycareController extends Controller
             //     'lat'=>'required',
             //     'lng'=>'required',
             //     'email'=>'required',
-            //     // 'web'=>'required',
+            //     'web'=>'nullable',
             //     'contact'=>'required',
 
             //     'price'=>'required',
@@ -362,7 +352,7 @@ class DaycareController extends Controller
     public function update_x(Request $request)
     {   
         
-        // Obtaining daycare to be updated
+        // Gathering the data of the daycare to be updated
         $id = $request->update_daycare_id;
         $data = Daycare::find($id);
 
@@ -534,16 +524,13 @@ class DaycareController extends Controller
         }
 
         $query ='SELECT * FROM daycares WHERE '.$age_query.''.$price_query.''.$rating_query.''.$distance_query.''.$accepting_students_query.''.$licensed_query.''.$wait_list_query.''.$care_type_query.''.$reviews_query.' TRUE';
-
-        // $data = DB::select('SELECT * FROM daycares WHERE '.$rating_query.''.$accepting_students_query.''.$age_query.' 1=1');
+        
         $data = DB::select(''.$query.'');
 
         return view('daycare.daycares')->with('daycares',$data); 
-
-        // return $request;
-        // return $query; 
-        // return $data;
     }
+
+
 
     public function compare_x(Request $request)
     {
@@ -555,7 +542,7 @@ class DaycareController extends Controller
             if($request[''.$x.'']!=null){
                 $compare_count ++ ;
                 
-                //adding daycares to the array
+                //adding daycares to the array for comparison
                 $daycare = Daycare::find($x);
                 array_push($data,$daycare);
 
@@ -580,3 +567,12 @@ class DaycareController extends Controller
         //
     }
 }
+
+
+//QUERY SET
+// $data = Daycare::orderBy('name','asc')->paginate(10);
+// $data = Daycare::all();
+// $data = Daycare::orderBy('name','asc')->get();
+// $data = Daycare::orderBy('name','asc')->take(1)->get();
+// $data = DB::select('SELECT * FROM daycares');
+// return Daycare::where('name','ABC')->get();
