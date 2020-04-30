@@ -199,6 +199,12 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div> --}}
+                    {{-- {{Form::select(
+                        'material_selector',
+                        ['10' => 'Cotton', '20' => 'Wet Look', '30' => 'Crocodile'],
+                        null,
+                        ['placeholder' => 'Select Material', 'class' => 'form-control', 'onClick' => 'showSelectedValue()']
+                    )}} --}}
                     {{Form::select('filter_reviews', [
                         '1' => 'Below 10', 
                         '2' => '11-50',
